@@ -1,0 +1,30 @@
+<div class="container p4">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="page-header">
+                <h1 id="tables" class="my-4 text-center">Direcciones</h1>
+            </div>
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Direccion</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each direcciones}}
+                    <tr>
+                        <td> {{nombre_direccion}} </td>
+                        <td> {{descripcion_direccion}} </td>
+                        <td>
+                            <a href="/direcciones/delete/{{id_direccion}}" class="btn btn-danger mr-1">Eliminar</a>
+                            <a href="/direcciones/edit/{{id_direccion}}" class="btn btn-secondary mr-1">Editar</a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
