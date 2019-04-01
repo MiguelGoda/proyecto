@@ -5,7 +5,7 @@ const path = require("path");
 const flash = require("connect-flash");
 const session = require("express-session");
 const MySQLStore = require("express-mysql-session");
-
+const moment = require("handlebars.moment");
 const { database } = require("./keys");
 
 //initializations
@@ -52,6 +52,8 @@ app.use(require("./routes/authentication"));
 app.use("/direcciones", require("./routes/direcciones"));
 app.use("/unidades", require("./routes/unidades"));
 app.use("/personas", require("./routes/personas"));
+app.use("/tipo_memos", require("./routes/tipo_memos"));
+app.use("/memos", require("./routes/memos"));
 
 //Public
 app.use(express.static(path.join(__dirname, "public")));
