@@ -8,11 +8,8 @@ router.get("/add", async (req, res) => {
     "select id_tipo_memo as tipo_memo_id_tipo_memo, tipo_memo from tipo_memo; "
   );
   const persona = await pool.query(
-    "select id_persona as persona_id_persona, ap_paterno, ap_materno, nombres from persona;"
+    "select id_persona as persona_id_persona, concat(nombres, ' ', ap_paterno, ' ', ap_materno) as nombre_completo from persona;"
   );
-
-  console.log(tipo_memos);
-  console.log(persona);
 
   res.render("memos/add", { tipo_memos, persona });
 });
