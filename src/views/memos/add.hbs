@@ -13,6 +13,13 @@
                             </select>
                         </div>
                         <div class="form-group">
+                            <select class="form-control" name="persona_nombres" placeholder="nombres">
+                                {{#each persona}}
+                                <option value="{{persona_id_persona}}"> {{nombres}} </option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <input type="text" name="nombre_unidad" class="form-control" placeholder="Nombre Memo"
                                 autofocus>
                         </div>
