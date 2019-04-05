@@ -26,7 +26,6 @@ router.get("/", async (req, res) => {
   const unidades = await pool.query(
     "SELECT direccion_id_direccion as direccion_id_direccion, direccion.nombre_direccion,unidad.id_unidad , unidad.nombre_unidad, unidad.descripcion FROM direccion RIGHT JOIN unidad ON direccion.id_direccion = unidad.direccion_id_direccion ;"
   );
-  console.log(unidades);
   res.render("unidades/list", { unidades });
 });
 
