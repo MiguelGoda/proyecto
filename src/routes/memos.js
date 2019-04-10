@@ -10,8 +10,6 @@ router.get("/add", async (req, res) => {
   const persona = await pool.query(
     "select id_persona as persona_id_persona, concat(nombres, ' ', ap_paterno, ' ', ap_materno) as nombre_completo from persona;"
   );
-  console.log(tipo_memos);
-  console.log(persona);
   res.render("memos/add", { tipo_memos, persona });
 });
 
@@ -31,16 +29,14 @@ router.post("/add", async (req, res) => {
     persona_id_persona
   };
   await pool.query("INSERT INTO memos set ?", [newMemo]);
-  console.log(newMemo);
   req.flash("success", "El Memo se adiciono correctamente");
   res.redirect("/memos");
 });
 
 router.get("/", async (req, res) => {
   const memos = await pool.query(
-    "select M.id_memos, M.nro_memo, M.descripcion_memo, M.fecha_memo, T.tipo_memo, concat(P.nombres, ' ', P.ap_paterno, ' ', P.ap_materno) as nombre_completo from memos M LEFT JOIN persona P ON (M.persona_id_persona = P.id_persona) LEFT JOIN tipo_memo T ON (T.id_tipo_memo = M.tipo_memo_id_tipo_memo);"
+    "SELECT M.id_memos, M.nro_memo, M.descripcion_memo, M.fecha_memo, T.tipo_memo, CONCAT(P.nombres, ' ', P.ap_paterno, ' ', P.ap_materno) as nombre_completo FROM memos M LEFT JOIN persona P ON (M.persona_id_persona = P.id_persona) LEFT JOIN tipo_memo T ON (T.id_tipo_memo = M.tipo_memo_id_tipo_memo);"
   );
-  console.log(memos);
   res.render("memos/list", { memos });
 });
 

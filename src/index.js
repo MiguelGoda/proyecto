@@ -55,6 +55,7 @@ app.use("/personas", require("./routes/personas"));
 app.use("/tipo_memos", require("./routes/tipo_memos"));
 app.use("/memos", require("./routes/memos"));
 app.use("/niveles", require("./routes/niveles"));
+app.use("/requisitos", require("./routes/requisitos"));
 
 //Public
 app.use(express.static(path.join(__dirname, "public")));

@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `RRHH`.`unidad` (
   `nombre_unidad` VARCHAR(45) NOT NULL,
   `descripcion` VARCHAR(45) NOT NULL,
   `direccion_id_direccion` INT NOT NULL,
-  PRIMARY KEY (`id_unidad`, `direccion_id_direccion`),
+  PRIMARY KEY (`id_unidad`),
   INDEX `fk_unidad_direccion1_idx` (`direccion_id_direccion` ASC) VISIBLE,
   CONSTRAINT `fk_unidad_direccion1`
     FOREIGN KEY (`direccion_id_direccion`)
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `RRHH`.`cargo` (
   `nombre_cargo` VARCHAR(250) NOT NULL,
   `descricion` VARCHAR(45) NOT NULL,
   `unidad_id_unidad` INT NOT NULL,
-  PRIMARY KEY (`id_cargo`, `unidad_id_unidad`),
+  PRIMARY KEY (`id_cargo`),
   INDEX `fk_cargo_unidad1_idx` (`unidad_id_unidad` ASC) VISIBLE,
   CONSTRAINT `fk_cargo_unidad1`
     FOREIGN KEY (`unidad_id_unidad`)
@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `RRHH`.`memos` (
   `fecha_memo` DATE NOT NULL,
   `tipo_memo_id_tipo_memo` INT NOT NULL,
   `persona_id_persona` INT NOT NULL,
-  PRIMARY KEY (`id_memos`, `tipo_memo_id_tipo_memo`, `persona_id_persona`),
+  PRIMARY KEY (`id_memos`),
   INDEX `fk_memos_tipo_memo1_idx` (`tipo_memo_id_tipo_memo` ASC) VISIBLE,
   INDEX `fk_memos_persona1_idx` (`persona_id_persona` ASC) VISIBLE,
   CONSTRAINT `fk_memos_tipo_memo1`
@@ -139,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `RRHH`.`familiares` (
   `fecha_nacimiento` DATE NULL,
   `CI_familiar` VARCHAR(15) NULL,
   `persona_id_persona` INT NOT NULL,
-  PRIMARY KEY (`id_familiares`, `persona_id_persona`),
+  PRIMARY KEY (`id_familiares`),
   INDEX `fk_familiares_persona1_idx` (`persona_id_persona` ASC) VISIBLE,
   CONSTRAINT `fk_familiares_persona1`
     FOREIGN KEY (`persona_id_persona`)
@@ -148,6 +148,58 @@ CREATE TABLE IF NOT EXISTS `RRHH`.`familiares` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 COMMENT = '	';
+
+
+-- -----------------------------------------------------
+-- Table `RRHH`.`contrataciones`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `RRHH`.`contrataciones` (
+  `id_contratacion` INT NOT NULL AUTO_INCREMENT,
+  `fecha_ingreso` DATE NOT NULL,
+  `fecha_retiro` DATE NULL,
+  `año_servicio` DATE NULL,
+  `motivo_retiro` VARCHAR(250) NULL,
+  `persona_id_persona` INT NOT NULL,
+  `niveles_id_niveles` INT NOT NULL,
+  `cargo_id_cargo` INT NOT NULL,
+  PRIMARY KEY (`id_contratacion`),
+  INDEX `fk_contrataciones_persona1_idx` (`persona_id_persona` ASC) VISIBLE,
+  INDEX `fk_contrataciones_niveles1_idx` (`niveles_id_niveles` ASC) VISIBLE,
+  INDEX `fk_contrataciones_cargo1_idx` (`cargo_id_cargo` ASC) VISIBLE,
+  CONSTRAINT `fk_contrataciones_persona1`
+    FOREIGN KEY (`persona_id_persona`)
+    REFERENCES `RRHH`.`persona` (`id_persona`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_contrataciones_niveles1`
+    FOREIGN KEY (`niveles_id_niveles`)
+    REFERENCES `RRHH`.`niveles` (`id_niveles`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_contrataciones_cargo1`
+    FOREIGN KEY (`cargo_id_cargo`)
+    REFERENCES `RRHH`.`cargo` (`id_cargo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `RRHH`.`formacion_academica`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `RRHH`.`formacion_academica` (
+  `id_formacion` INT NOT NULL AUTO_INCREMENT,
+  `nivel_academico` VARCHAR(250) NOT NULL,
+  `profesion_ocupacion` VARCHAR(250) NOT NULL,
+  `persona_id_persona` INT NOT NULL,
+  PRIMARY KEY (`id_formacion`),
+  INDEX `fk_formacion_academica_persona1_idx` (`persona_id_persona` ASC) VISIBLE,
+  CONSTRAINT `fk_formacion_academica_persona1`
+    FOREIGN KEY (`persona_id_persona`)
+    REFERENCES `RRHH`.`persona` (`id_persona`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -166,63 +218,10 @@ CREATE TABLE IF NOT EXISTS `RRHH`.`requisitos` (
   `sippase` TINYINT NOT NULL,
   `AFP` VARCHAR(45) NOT NULL,
   `idioma_nativo` TINYINT NOT NULL,
-  PRIMARY KEY (`id_requisitos`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `RRHH`.`contrataciones`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `RRHH`.`contrataciones` (
-  `id_contratacion` INT NOT NULL AUTO_INCREMENT,
-  `fecha_ingreso` DATE NOT NULL,
-  `fecha_retiro` DATE NULL,
-  `año_servicio` DATE NULL,
-  `motivo_retiro` VARCHAR(250) NULL,
   `persona_id_persona` INT NOT NULL,
-  `requisitos_id_requisitos` INT NOT NULL,
-  `niveles_id_niveles` INT NOT NULL,
-  `cargo_id_cargo` INT NOT NULL,
-  `cargo_unidad_id_unidad` INT NOT NULL,
-  PRIMARY KEY (`id_contratacion`, `persona_id_persona`, `requisitos_id_requisitos`, `niveles_id_niveles`, `cargo_id_cargo`, `cargo_unidad_id_unidad`),
-  INDEX `fk_contrataciones_persona1_idx` (`persona_id_persona` ASC) VISIBLE,
-  INDEX `fk_contrataciones_requisitos1_idx` (`requisitos_id_requisitos` ASC) VISIBLE,
-  INDEX `fk_contrataciones_niveles1_idx` (`niveles_id_niveles` ASC) VISIBLE,
-  INDEX `fk_contrataciones_cargo1_idx` (`cargo_id_cargo` ASC, `cargo_unidad_id_unidad` ASC) VISIBLE,
-  CONSTRAINT `fk_contrataciones_persona1`
-    FOREIGN KEY (`persona_id_persona`)
-    REFERENCES `RRHH`.`persona` (`id_persona`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_contrataciones_requisitos1`
-    FOREIGN KEY (`requisitos_id_requisitos`)
-    REFERENCES `RRHH`.`requisitos` (`id_requisitos`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_contrataciones_niveles1`
-    FOREIGN KEY (`niveles_id_niveles`)
-    REFERENCES `RRHH`.`niveles` (`id_niveles`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_contrataciones_cargo1`
-    FOREIGN KEY (`cargo_id_cargo` , `cargo_unidad_id_unidad`)
-    REFERENCES `RRHH`.`cargo` (`id_cargo` , `unidad_id_unidad`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `RRHH`.`formacion_academica`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `RRHH`.`formacion_academica` (
-  `id_formacion` INT NOT NULL AUTO_INCREMENT,
-  `nivel_academico` VARCHAR(250) NOT NULL,
-  `profesion_ocupacion` VARCHAR(250) NOT NULL,
-  `persona_id_persona` INT NOT NULL,
-  PRIMARY KEY (`id_formacion`, `persona_id_persona`),
-  INDEX `fk_formacion_academica_persona1_idx` (`persona_id_persona` ASC) VISIBLE,
-  CONSTRAINT `fk_formacion_academica_persona1`
+  PRIMARY KEY (`id_requisitos`),
+  INDEX `fk_requisitos_persona1_idx` (`persona_id_persona` ASC) VISIBLE,
+  CONSTRAINT `fk_requisitos_persona1`
     FOREIGN KEY (`persona_id_persona`)
     REFERENCES `RRHH`.`persona` (`id_persona`)
     ON DELETE NO ACTION
@@ -241,7 +240,7 @@ CREATE TABLE IF NOT EXISTS `RRHH`.`boletas` (
   `fecha` DATE NOT NULL,
   `observacion` VARCHAR(250) NOT NULL,
   `persona_id_persona` INT NOT NULL,
-  PRIMARY KEY (`id_boleta`, `codigo`, `persona_id_persona`),
+  PRIMARY KEY (`id_boleta`, `codigo`),
   INDEX `fk_boletas_persona_idx` (`persona_id_persona` ASC) VISIBLE,
   CONSTRAINT `fk_boletas_persona`
     FOREIGN KEY (`persona_id_persona`)

@@ -1,0 +1,121 @@
+<div class="container p-4">
+    <div class="row">
+        <div class="col-md-6 mx-auto ">
+            <div class="card">
+                <h4 class="p-4 text-center">REQUISITOS</h4>
+                {{#each requisitos}}
+                <div class="card-body">
+                    <form action="/requisitos/add" method="POST">
+                        <div class="form-group">
+                            <input class="form-control" value="{{nombre_completo}}">
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" name="curriculum" type="checkbox" value="1"
+                                    id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Curriculum
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" name="declaracion_jurada" type="checkbox"
+                                    value=" {{declaracion_jurada}} " id="defaultCheck1" checked>
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Declaracion Jurada
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input placeholder="Fecha Declaracion" name="fecha_declaracion" class="form-control"
+                                type="text" value=" {{fecha_declaracion}} " id="date">
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" name="incompatibilidad" type="checkbox" value="1"
+                                    id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Incompatibilidad
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" name="certificado_antecedentes" type="checkbox"
+                                    value="1" id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Certificado de Antecedentes
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" name="libreta_militar" type="checkbox" value="1"
+                                    id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Libreta Militar
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" name="patron_biometrico" type="checkbox" value="1"
+                                    id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Patron Biometrico
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" name="seguro_salud" type="checkbox" value="1"
+                                    id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Seguro Salud
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" name="sippase" type="checkbox" value="1"
+                                    id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    SIPPASE
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" name="afp" type="checkbox" value="1" id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    AFP
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" name="idioma_nativo" type="checkbox" value="1"
+                                    id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Idioma Nativo
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-success btn-block" aria-pressed="true" autocomplete="off">
+                                Guardar
+                            </button>
+                            <button href="" class="btn btn-secondary btn-block" data-toggle="button" aria-pressed="true"
+                                autocomplete="off">
+                                Cancelar
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
