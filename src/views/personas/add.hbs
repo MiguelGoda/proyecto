@@ -23,7 +23,17 @@
                             <input type="text" name="provincia" class="form-control" placeholder="Provincia">
                         </div>
                         <div class="form-group">
-                            <input type="text" name="departamento" class="form-control" placeholder="Departamento">
+                            <select type="text" name="departamento" class="form-control" placeholder="Departamento">
+                                <option>Pando</option>
+                                <option>Beni</option>
+                                <option>Santa Cruz</option>
+                                <option>La Paz</option>
+                                <option>Cochabamba</option>
+                                <option>Oruro</option>
+                                <option>Potosi</option>
+                                <option>Tarija</option>
+                                <option>Chuquisaca</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <input type="text" name="CI" class="form-control" placeholder="cedula">
@@ -39,12 +49,12 @@
                         </div>
                         <div class="form-group">
                             <div class="custom-control custom-radio">
-                                <input type="radio" value="hombre" id="customRadio1" name="sexo"
-                                    class="custom-control-input" checked="">
+                                <input type="radio" value="M" id="customRadio1" name="sexo" class="custom-control-input"
+                                    checked="">
                                 <label class="custom-control-label" for="customRadio1">Hombre</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input type="radio" value="mujer" id="customRadio2" name="sexo"
+                                <input type="radio" value="F" id="customRadio2" name="sexo"
                                     class="custom-control-input">
                                 <label class="custom-control-label" for="customRadio2">Mujer
                                 </label>
@@ -55,10 +65,7 @@
                             <button class="btn btn-success btn-block" aria-pressed="true" autocomplete="off">
                                 Guardar
                             </button>
-                            <button href="/personas" class="btn btn-secondary btn-block" data-toggle="button"
-                                aria-pressed="true">
-                                Cancelar
-                            </button>
+                            <a href="/personas" class="btn btn-secondary btn-block" aria-pressed="true">Cancelar</a>
                         </div>
                     </form>
                 </div>

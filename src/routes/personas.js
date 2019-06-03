@@ -36,13 +36,21 @@ router.post("/add", async (req, res) => {
   };
   console.log(newPersona);
 
-  await pool.query("INSERT INTO persona SET ?", [newPersona]);
+  await pool.query("INSERT INTO personas SET ?", [newPersona]);
+  req.flash("success", "La persona se adicciono correctamente");
   res.redirect("/personas");
 });
 
 router.get("/", async (req, res) => {
-  const personal = await pool.query("SELECT * FROM persona;");
+  const personal = await pool.query("SELECT * FROM personas;");
   res.render("personas/list", { personal });
+});
+
+router.get("/delete/:id", async (req, res) => {
+  const { id } = req.params;
+  await pool.query("DELETE FROM personas WHERE id_persona = ?", [id]);
+  req.flash("success", "Persona eliminada correctamente");
+  res.redirect("/personas");
 });
 
 module.exports = router;
