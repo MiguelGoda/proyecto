@@ -13,19 +13,19 @@ router.post("/add", async (req, res) => {
     nombre_direccion,
     descripcion_direccion
   };
-  await pool.query("INSERT INTO direccion set ?", [newDireccion]);
+  await pool.query("INSERT INTO direcciones set ?", [newDireccion]);
   req.flash("success", "La Direccion adicciono Correctamente");
   res.redirect("/direcciones");
 });
 
 router.get("/", async (req, res) => {
-  const direcciones = await pool.query("SELECT * FROM direccion");
+  const direcciones = await pool.query("SELECT * FROM direcciones");
   res.render("direcciones/list", { direcciones });
 });
 
 router.get("/delete/:id", async (req, res) => {
   const { id } = req.params;
-  await pool.query("DELETE FROM direccion WHERE ID_DIRECCION = ?", [id]);
+  await pool.query("DELETE FROM direcciones WHERE ID_DIRECCION = ?", [id]);
   req.flash("success", "Direccion eliminada Correctamente");
   res.redirect("/direcciones");
 });
@@ -33,7 +33,7 @@ router.get("/delete/:id", async (req, res) => {
 router.get("/edit/:id", async (req, res) => {
   const { id } = req.params;
   const direcciones = await pool.query(
-    "SELECT * FROM direccion WHERE ID_DIRECCION = ?",
+    "SELECT * FROM direcciones WHERE ID_DIRECCION = ?",
     [id]
   );
   res.render("direcciones/edit", { direcciones: direcciones[0] });
