@@ -5,45 +5,43 @@
                 <h1 id="tables" class="my-4 text-center">Personal</h1>
                 <a href="/personas/add" class="btn btn-success m-1">Agregar Persona</a>
             </div>
-            <table class="table table-hover table-bordered">
-                <thead>
-                    <tr>
-                        <th scope="col">Paterno</th>
-                        <th scope="col">Materno</th>
-                        <th scope="col">Nombres</th>
-                        <th scope="col">Fecha Nacimiento</th>
-                        <th scope="col">Provincia</th>
-                        <th scope="col">Dpto</th>
-                        <th scope="col">CI</th>
-                        <th scope="col">Celular</th>
-                        <th scope="col">Estado Civil</th>
-                        <th scope="col">Domicilio</th>
-                        <th scope="col">Sexo</th>
-                        <th scope="col">Acciones</th>
+            <div class="table-responsive-sm">
+                <table class="table table-hover cellspacing=" 0" width="100%"">
+                    <thead>
+                        <tr>
+                            <th scope=" col">Nombres</th>
+                    <th scope="col">Fecha Nacimiento</th>
+                    <th scope="col">Provincia</th>
+                    <th scope="col">Dpto</th>
+                    <th scope="col">CI</th>
+                    <th scope="col">Celular</th>
+                    <th scope="col">Estado Civil</th>
+                    <th scope="col">Domicilio</th>
+                    <th scope="col">Sexo</th>
+                    <th scope="col">Acciones</th>
                     </tr>
-                </thead>
-                <tbody>
-                    {{#each personal}}
-                    <tr>
-                        <td> {{ap_paterno}} </td>
-                        <td> {{ap_materno}} </td>
-                        <td> {{nombres}} </td>
-                        <td> {{fecha_nacimiento }} </td>
-                        <td> {{provincia}} </td>
-                        <td> {{departamento}} </td>
-                        <td> {{CI}} </td>
-                        <td> {{celular}} </td>
-                        <td> {{estado_civil}} </td>
-                        <td> {{domicilio}} </td>
-                        <td> {{sexo}} </td>
-                        <td>
-                            <a href="/personas/delete/{{id_persona}}" class="btn btn-danger mr-1">Eliminar</a>
-                            <a href="/personas/edit/{{id_persona}}" class="btn btn-secondary mr-1">Editar</a>
-                        </td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {{#each personal}}
+                        <tr>
+                            <td> {{ap_paterno}} {{ap_materno}} {{nombres}} </td>
+                            <td> {{moment fecha_nacimiento format= "DD/MM/YY" }} </td>
+                            <td> {{provincia}} </td>
+                            <td> {{departamento}} </td>
+                            <td> {{CI}} </td>
+                            <td> {{celular}} </td>
+                            <td> {{estado_civil}} </td>
+                            <td> {{domicilio}} </td>
+                            <td> {{sexo}} </td>
+                            <td>
+                                <a href="/personas/delete/{{id_persona}}" class="btn btn-danger mr-1">Eliminar</a>
+                                <a href="/personas/edit/{{id_persona}}" class="btn btn-secondary mr-1">Editar</a>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

@@ -2,25 +2,30 @@
     <div class="row">
         <div class="col-md-6 mx-auto text-center">
             <div class="card">
-                <h4 class="p-4">Agregar Personas</h4>
+                <h4 class="p-4">Editar Personas</h4>
                 <div class="card-body">
-                    <form action="/personas/add" method="POST">
+                    <form action="/personas/edit/{{personas.id_persona}}" method="POST">
                         <div class="form-group">
-                            <input type="text" name="ap_paterno" class="form-control" placeholder="Apellido Paterno"
-                                autofocus>
+                            <input type="text" value="{{personas.ap_paterno}}" name="ap_paterno" class="form-control"
+                                placeholder="Apellido Paterno" autofocus>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="ap_materno" class="form-control" placeholder="Apellido Materno">
+                            <input type="text" value="{{personas.ap_materno}}" name="ap_materno" class="form-control"
+                                placeholder="Apellido Materno">
                         </div>
                         <div class="form-group">
-                            <input type="text" name="nombres" class="form-control" placeholder="Nombres">
+                            <input type="text" value="{{personas.nombres}}" name="nombres" class="form-control"
+                                placeholder="Nombres">
                         </div>
                         <div class="form-group">
-                            <input placeholder="Fecha de Nacimiento" name="fecha_nacimiento" class="form-control"
-                                type="text" onfocus="(this.type='date')" id="date">
+                            <input placeholder="Fecha de Nacimiento"
+                                value="{{moment personas.fecha_nacimiento format= "YYYY/MM/DD"}}"
+                                name="fecha_nacimiento" class="form-control" type="text" onfocus="(this.type='date')"
+                                id="date">
                         </div>
                         <div class="form-group">
-                            <input type="text" name="provincia" class="form-control" placeholder="Provincia">
+                            <input type="text" value="{{personas.provincia}}" name="provincia" class="form-control"
+                                placeholder="Provincia">
                         </div>
                         <div class="form-group">
                             <select type="text" name="departamento" class="form-control" placeholder="Departamento">
@@ -36,16 +41,20 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="CI" class="form-control" placeholder="cedula">
+                            <input type="text" value="{{personas.CI}}" name="CI" class="form-control"
+                                placeholder="cedula">
                         </div>
                         <div class="form-group">
-                            <input type="number" name="celular" class="form-control" placeholder="Celular">
+                            <input type="number" value="{{personas.celular}}" name="celular" class="form-control"
+                                placeholder="Celular">
                         </div>
                         <div class="form-group">
-                            <input type="text" name="estado_civil" class="form-control" placeholder="Estado Civil">
+                            <input type="text" value="{{personas.estado_civil}}" name="estado_civil"
+                                class="form-control" placeholder="Estado Civil">
                         </div>
                         <div class="form-group">
-                            <input type="text" name="domicilio" class="form-control" placeholder="Domicilio">
+                            <input type="text" value="{{personas.domicilio}}" name="domicilio" class="form-control"
+                                placeholder="Domicilio">
                         </div>
                         <div class="form-group">
                             <div class="custom-control custom-radio">

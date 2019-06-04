@@ -46,7 +46,7 @@ router.post("/edit/:id", async (req, res) => {
     nombre_direccion,
     descripcion_direccion
   };
-  await pool.query("UPDATE direccion set ? WHERE ID_DIRECCION = ?", [
+  await pool.query("UPDATE direcciones set ? WHERE ID_DIRECCION = ?", [
     newDireccion,
     id
   ]);

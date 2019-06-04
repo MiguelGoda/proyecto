@@ -1,8 +1,2 @@
-// var Handlebars = require("handlebars");
-// var MomentHandler = require("handlebars.moment");
-
-// MomentHandler.registerHelpers(Handlebars);
-
-// $(function () {
-//     var source =
-// })
+var handlebars = require("handlebars");
+handlebars.registerHelper("moment", require("helper-moment"));
