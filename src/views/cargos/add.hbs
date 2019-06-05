@@ -2,18 +2,18 @@
     <div class="row">
         <div class="col-md-6 mx-auto text-center">
             <div class="card">
-                <h4 class="p-4">Agregar Unidades</h4>
+                <h4 class="p-4">Agregar Cargo</h4>
                 <div class="card-body">
-                    <form action="/unidades/add" method="POST">
+                    <form action="/cargos/add" method="POST">
                         <div class="form-group">
-                            <select class="form-control" name="id_direccion" placeholder="Direcciones">
-                                {{#each direcciones}}
-                                <option value="{{id_direccion}}"> {{nombre_direccion}} </option>
+                            <select class="form-control" name="id_unidad" placeholder="Direcciones">
+                                {{#each unidades}}
+                                <option value="{{id_unidad}}"> {{nombre_unidad}} </option>
                                 {{/each}}
                             </select>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="nombre_unidad" class="form-control" placeholder="Nombre Unidad"
+                            <input type="text" name="nombre_cargo" class="form-control" placeholder="Nombre Cargo"
                                 autofocus>
                         </div>
                         <div class="form-group">
@@ -24,7 +24,7 @@
                             <button class="btn btn-success btn-block" aria-pressed="true" autocomplete="off">
                                 Guardar
                             </button>
-                            <a href="/unidades" class="btn btn-secondary btn-block" aria-pressed="true">Cancelar</a>
+                            <a href="/cargos" class="btn btn-secondary btn-block" aria-pressed="true">Cancelar</a>
                         </div>
                     </form>
                 </div>
