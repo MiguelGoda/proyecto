@@ -5,7 +5,7 @@ const pool = require("../database");
 
 router.get("/add", async (req, res) => {
   const personas = await pool.query(
-    "SELECT id_persona AS persona_id_persona, CONCAT(nombres, ' ', ap_paterno, ' ', ap_materno) AS nombre_completo FROM persona "
+    "SELECT id_persona AS persona_id_persona, CONCAT(nombres, ' ', ap_paterno, ' ', ap_materno) AS nombre_completo FROM personas "
   );
   res.render("requisitos/add", { personas });
 });
@@ -46,7 +46,7 @@ router.post("/add", async (req, res) => {
 
 router.get("/", async (req, res) => {
   const requisitos = await pool.query(
-    "SELECT curriculum, declaracion_jurada, fecha_declaracion, incompatibilidad,  certificado_antecedentes,libreta_militar,  patron_biometrico,  seguro_salud,  sippase,  afp,  idioma_nativo,  concat(nombres, ' ', ap_paterno, ' ', ap_materno) as nombre_completo, id_persona AS persona_id_persona FROM requisitos LEFT JOIN persona on persona_id_persona = id_persona"
+    "SELECT r.curriculum, r.declaracion_jurada, r.fecha_declaracion, r.incompatibilidad,  r.certificado_antecedentes, r.libreta_militar,  r.patron_biometrico,  r.seguro_salud,  r.sippase,  r.afp,  r.idioma_nativo,  concat(p.nombres, ' ', p.ap_paterno, ' ', p.ap_materno) as nombre_completo, p.id_persona AS id_persona FROM requisitos r LEFT JOIN personas p on r.id_persona = p.id_persona"
   );
   console.log(requisitos);
   res.render("requisitos/list", { requisitos });
