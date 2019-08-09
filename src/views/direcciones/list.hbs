@@ -1,144 +1,31 @@
-<div class="container p4 agregar">
+<div class="container p4">
     <div class="row">
         <div class="col-lg-12">
-            <div class="card mt-2">
-                <div class="card-header text-center">
-                    <h3>Direccciones</h3>
-                </div>
-                <div class="card-body" id="list">
-                    <form class="form-row my-2 my-lg-0">
-                        <div class="col">
-                            <button type="button" class="btn btn-primary " data-toggle="modal"
-                                data-target="#exampleModal" data-whatever="@mdo">Crear Direccion</button>
-                        </div>
-                        <div class="col">
-                            <input class="form-control " type="search" placeholder="Nombre Direccion"
-                                aria-label="Search">
-                        </div>
-                        <div class="col-auto">
-                            <button class="btn btn-outline-success" type="submit">Buscar</button>
-                        </div>
-                    </form>
-                    {{#if bien}}
-                    <table class="table table-hover table-bordered mt-2">
-                        <thead>
-                            <tr>
-                                <th scope="col">Direccion</th>
-                                <th scope="col">Descripcion</th>
-                                <th width="130" scope="col">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each direcciones}}
-                            <div id="columnas">
-                                <tr>
-                                    <td> {{nombre_direccion}} </td>
-                                    <td> {{descripcion_direccion}} </td>
-                                    <td class="text-center">
-                                        <a href="/direcciones/delete/{{id_direccion}}" class="btn btn-danger mr-1"><i
-                                                class="far fa-trash-alt"></i>
-                                        </a>
-                                        <button type="button" class="btn btn-warning " data-toggle="modal"
-                                            data-target="#actualizarDireccion" value="{{id_direccion}}"
-                                            data-whatever="@mdo"><i class="fas fa-edit"></i></button>
-                                    </td>
-                                </tr>
-                            </div>
-                            {{/each}}
-                        </tbody>
-                    </table>
-                    {{else}}
-                    <figure class="text-center m-2">
-                        <img src="images/loader.gif" alt="cagando" style=" width: 10rem">
-                    </figure>
-                    {{/if}}
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+            <div class="page-header">
+                <h1 id="tables" class="my-4 text-center">Direcciones</h1>
+                <a href="/direcciones/add" class="btn btn-success m-1">Crear direccion</a>
             </div>
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Direccion</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each direcciones}}
+                    <tr>
+                        <td> {{nombre_direccion}} </td>
+                        <td> {{descripcion_direccion}} </td>
+                        <td>
+                            <a href="/direcciones/delete/{{id_direccion}}" class="btn btn-danger mr-1">Eliminar</a>
+                            <a href="/direcciones/edit/{{id_direccion}}" class="btn btn-secondary mr-1">Editar</a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Nueva Direccion</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="/direcciones" method="POST">
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Nombre Direccion:</label>
-                        <input type="text" name="nombre_direccion" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="form-group">
-                        <label for="message-text" name="descripcion_direccion"
-                            class="col-form-label">Descripcion:</label>
-                        <textarea name="descripcion_direccion" class="form-control" id="message-text"></textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button class="btn btn-primary" aria-pressed="true" autocomplete="off">
-                            Guardar
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="actualizarDireccion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Editar Direccion</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="/direcciones/{{direcciones.id_direccion}}" method="PUT">
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Nombre Direccion:</label>
-                        <input value="{{direcciones.nombre_direccion}}" type=" text" name="nombre_direccion"
-                            class="form-control" id="recipient-name">
-                    </div>
-                    <div class="form-group">
-                        <label for="message-text" name="descripcion_direccion"
-                            class="col-form-label">{{direcciones.descripcion_direccion}}</label>
-                        <textarea name="descripcion_direccion" class="form-control" id="message-text"></textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button class="btn btn-success" aria-pressed="true" autocomplete="off">
-                            Guardar
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<script src="JS/tables.js"></script>
