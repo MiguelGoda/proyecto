@@ -17,236 +17,178 @@ USE `RRHH` ;
 -- -----------------------------------------------------
 -- Table `RRHH`.`persona`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `RRHH`.`persona` (
-  `id_persona` INT NOT NULL AUTO_INCREMENT,
-  `ap_paterno` VARCHAR(150) NOT NULL,
-  `ap_materno` VARCHAR(150) NOT NULL,
-  `nombres` VARCHAR(250) NOT NULL,
-  `fecha_nacimiento` DATE NOT NULL,
-  `provincia` VARCHAR(300) NOT NULL,
-  `departamento` VARCHAR(250) NOT NULL,
-  `CI` VARCHAR(15) NOT NULL,
-  `celular` INT(11) NOT NULL,
-  `estado_civil` VARCHAR(45) NOT NULL,
-  `domicilio` VARCHAR(250) NOT NULL,
-  `sexo` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id_persona`))
-ENGINE = InnoDB;
+CREATE TABLE `personas` (
+  `id_persona` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `ap_paterno` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
+  `ap_materno` varchar(150) COLLATE utf8_spanish_ci NOT NULL,
+  `nombres` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `fecha_nacimiento` date NOT NULL,
+  `provincia` varchar(300) COLLATE utf8_spanish_ci NOT NULL,
+  `departamento` enum('Pando','Beni','Cochabamba','Santa Cruz','Tarija','Oruro','La Paz','Chuquisaca','Potosi') COLLATE utf8_spanish_ci NOT NULL,
+  `CI` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
+  `celular` int(11) NOT NULL,
+  `estado_civil` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `domicilio` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `sexo` enum('M','F') COLLATE utf8_spanish_ci NOT NULL,
+  `activo` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id_persona`),
+  UNIQUE KEY `CI` (`CI`)
+) ENGINE=InnoDB AUTO_INCREMENT=220 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 
 -- -----------------------------------------------------
 -- Table `RRHH`.`direccion`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `RRHH`.`direccion` (
-  `id_direccion` INT NOT NULL AUTO_INCREMENT,
-  `nombre_direccion` VARCHAR(250) NOT NULL,
-  `descripcion_direccion` VARCHAR(350) NULL,
-  PRIMARY KEY (`id_direccion`))
-ENGINE = InnoDB;
+CREATE TABLE `direcciones` (
+  `id_direccion` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre_direccion` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion_direccion` varchar(350) COLLATE utf8_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`id_direccion`)
+) ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `RRHH`.`unidad`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `RRHH`.`unidad` (
-  `id_unidad` INT NOT NULL AUTO_INCREMENT,
-  `nombre_unidad` VARCHAR(45) NOT NULL,
-  `descripcion` VARCHAR(45) NOT NULL,
-  `direccion_id_direccion` INT NOT NULL,
-  PRIMARY KEY (`id_unidad`),
-  INDEX `fk_unidad_direccion1_idx` (`direccion_id_direccion` ASC) VISIBLE,
-  CONSTRAINT `fk_unidad_direccion1`
-    FOREIGN KEY (`direccion_id_direccion`)
-    REFERENCES `RRHH`.`direccion` (`id_direccion`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE TABLE `unidades` (
+  `id_unidad` int(11) NOT NULL AUTO_INCREMENT,
+  `id_direccion` int(11) unsigned NOT NULL,
+  `nombre_unidad` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id_unidad`)
+) ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `RRHH`.`cargo`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `RRHH`.`cargo` (
-  `id_cargo` INT NOT NULL AUTO_INCREMENT,
-  `nombre_cargo` VARCHAR(250) NOT NULL,
-  `descricion` VARCHAR(45) NOT NULL,
-  `unidad_id_unidad` INT NOT NULL,
-  PRIMARY KEY (`id_cargo`),
-  INDEX `fk_cargo_unidad1_idx` (`unidad_id_unidad` ASC) VISIBLE,
-  CONSTRAINT `fk_cargo_unidad1`
-    FOREIGN KEY (`unidad_id_unidad`)
-    REFERENCES `RRHH`.`unidad` (`id_unidad`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE TABLE `cargos` (
+  `id_cargo` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id_unidad` int(11) NOT NULL,
+  `nombre_cargo` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id_cargo`)
+) ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `RRHH`.`niveles`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `RRHH`.`niveles` (
-  `id_niveles` INT NOT NULL AUTO_INCREMENT,
-  `nombre_nivel` VARCHAR(250) NOT NULL,
-  `haber_basico` INT NOT NULL,
-  PRIMARY KEY (`id_niveles`))
-ENGINE = InnoDB;
+CREATE TABLE `niveles` (
+  `id_nivel` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre_nivel` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `haber_basico` double(6,2) DEFAULT NULL,
+  PRIMARY KEY (`id_nivel`)
+) ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `RRHH`.`tipo_memo`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `RRHH`.`tipo_memo` (
-  `id_tipo_memo` INT NOT NULL AUTO_INCREMENT,
-  `tipo_memo` VARCHAR(250) NOT NULL,
-  `descripcion` VARCHAR(500) NOT NULL,
-  PRIMARY KEY (`id_tipo_memo`))
-ENGINE = InnoDB;
+CREATE TABLE `tipo_memos` (
+  `id_tipo_memo` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `tipo_memo` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(500) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id_tipo_memo`)
+) ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `RRHH`.`memos`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `RRHH`.`memos` (
-  `id_memos` INT NOT NULL AUTO_INCREMENT,
-  `nro_memo` VARCHAR(45) NOT NULL,
-  `descripcion_memo` VARCHAR(500) NOT NULL,
-  `fecha_memo` DATE NOT NULL,
-  `tipo_memo_id_tipo_memo` INT NOT NULL,
-  `persona_id_persona` INT NOT NULL,
-  PRIMARY KEY (`id_memos`),
-  INDEX `fk_memos_tipo_memo1_idx` (`tipo_memo_id_tipo_memo` ASC) VISIBLE,
-  INDEX `fk_memos_persona1_idx` (`persona_id_persona` ASC) VISIBLE,
-  CONSTRAINT `fk_memos_tipo_memo1`
-    FOREIGN KEY (`tipo_memo_id_tipo_memo`)
-    REFERENCES `RRHH`.`tipo_memo` (`id_tipo_memo`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_memos_persona1`
-    FOREIGN KEY (`persona_id_persona`)
-    REFERENCES `RRHH`.`persona` (`id_persona`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE TABLE `memos` (
+  `id_memo` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id_tipo_memo` int(11) unsigned NOT NULL,
+  `id_persona` int(11) unsigned NOT NULL,
+  `nro_memo` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion_memo` varchar(500) COLLATE utf8_spanish_ci NOT NULL,
+  `fecha_memo` date NOT NULL,
+  PRIMARY KEY (`id_memo`)
+) ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `RRHH`.`familiares`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `RRHH`.`familiares` (
-  `id_familiares` INT NOT NULL AUTO_INCREMENT,
-  `nombre_familiar` VARCHAR(250) NOT NULL,
-  `tipo_parentesco` VARCHAR(250) NULL,
-  `fecha_nacimiento` DATE NULL,
-  `CI_familiar` VARCHAR(15) NULL,
-  `persona_id_persona` INT NOT NULL,
-  PRIMARY KEY (`id_familiares`),
-  INDEX `fk_familiares_persona1_idx` (`persona_id_persona` ASC) VISIBLE,
-  CONSTRAINT `fk_familiares_persona1`
-    FOREIGN KEY (`persona_id_persona`)
-    REFERENCES `RRHH`.`persona` (`id_persona`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-COMMENT = '	';
+CREATE TABLE `familiares` (
+  `id_familiar` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id_persona` int(11) unsigned NOT NULL,
+  `nombre_familiar` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `tipo_parentesco` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `fecha_nacimiento` date NOT NULL,
+  `CI_familiar` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id_familiar`)
+) ENGINE = InnoDB
+
 
 
 -- -----------------------------------------------------
 -- Table `RRHH`.`contrataciones`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `RRHH`.`contrataciones` (
-  `id_contratacion` INT NOT NULL AUTO_INCREMENT,
-  `fecha_ingreso` DATE NOT NULL,
-  `fecha_retiro` DATE NULL,
-  `año_servicio` DATE NULL,
-  `motivo_retiro` VARCHAR(250) NULL,
-  `persona_id_persona` INT NOT NULL,
-  `niveles_id_niveles` INT NOT NULL,
-  `cargo_id_cargo` INT NOT NULL,
-  PRIMARY KEY (`id_contratacion`),
-  INDEX `fk_contrataciones_persona1_idx` (`persona_id_persona` ASC) VISIBLE,
-  INDEX `fk_contrataciones_niveles1_idx` (`niveles_id_niveles` ASC) VISIBLE,
-  INDEX `fk_contrataciones_cargo1_idx` (`cargo_id_cargo` ASC) VISIBLE,
-  CONSTRAINT `fk_contrataciones_persona1`
-    FOREIGN KEY (`persona_id_persona`)
-    REFERENCES `RRHH`.`persona` (`id_persona`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_contrataciones_niveles1`
-    FOREIGN KEY (`niveles_id_niveles`)
-    REFERENCES `RRHH`.`niveles` (`id_niveles`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_contrataciones_cargo1`
-    FOREIGN KEY (`cargo_id_cargo`)
-    REFERENCES `RRHH`.`cargo` (`id_cargo`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE TABLE `contrataciones` (
+  `id_contratacion` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id_persona` int(11) unsigned NOT NULL,
+  `id_requisito` int(11) unsigned NOT NULL,
+  `id_nivel` int(11) unsigned NOT NULL,
+  `id_cargo` int(11) unsigned NOT NULL,
+  `id_horario` int(11) unsigned NOT NULL,
+  `PIN` int(11) NOT NULL,
+  `contrato` enum('FIJO','EVENTUAL') COLLATE utf8_spanish_ci DEFAULT NULL,
+  `fecha_ingreso` date NOT NULL,
+  `fecha_retiro` date DEFAULT NULL,
+  `motivo_retiro` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `activo` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id_contratacion`)
+) ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `RRHH`.`formacion_academica`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `RRHH`.`formacion_academica` (
-  `id_formacion` INT NOT NULL AUTO_INCREMENT,
-  `nivel_academico` VARCHAR(250) NOT NULL,
-  `profesion_ocupacion` VARCHAR(250) NOT NULL,
-  `persona_id_persona` INT NOT NULL,
-  PRIMARY KEY (`id_formacion`),
-  INDEX `fk_formacion_academica_persona1_idx` (`persona_id_persona` ASC) VISIBLE,
-  CONSTRAINT `fk_formacion_academica_persona1`
-    FOREIGN KEY (`persona_id_persona`)
-    REFERENCES `RRHH`.`persona` (`id_persona`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE TABLE `formacion_academica` (
+  `id_formacion` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id_persona` int(11) unsigned NOT NULL,
+  `nivel_academico` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `profesion_ocupacion` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id_formacion`)
+) ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `RRHH`.`requisitos`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `RRHH`.`requisitos` (
-  `id_requisitos` INT NOT NULL AUTO_INCREMENT,
-  `curriculum` TINYINT NOT NULL,
-  `declaracion jurada` TINYINT NOT NULL,
-  `fecha_declaracion` DATE NOT NULL,
-  `incompatibilidad` TINYINT NOT NULL,
-  `certificado_antecedentes` TINYINT NOT NULL,
-  `libreta_militar` TINYINT NOT NULL,
-  `patron_biometrico` TINYINT NOT NULL,
-  `seguro_salud` TINYINT NOT NULL,
-  `sippase` TINYINT NOT NULL,
-  `AFP` VARCHAR(45) NOT NULL,
-  `idioma_nativo` TINYINT NOT NULL,
-  `persona_id_persona` INT NOT NULL,
-  PRIMARY KEY (`id_requisitos`),
-  INDEX `fk_requisitos_persona1_idx` (`persona_id_persona` ASC) VISIBLE,
-  CONSTRAINT `fk_requisitos_persona1`
-    FOREIGN KEY (`persona_id_persona`)
-    REFERENCES `RRHH`.`persona` (`id_persona`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE TABLE `requisitos` (
+  `id_requisito` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id_persona` int(11) unsigned NOT NULL,
+  `curriculum` tinyint(1) NOT NULL DEFAULT '1',
+  `declaracion_jurada` tinyint(1) NOT NULL DEFAULT '1',
+  `fecha_declaracion` date NOT NULL DEFAULT (_cp850'2019/01/05'),
+  `incompatibilidad` tinyint(1) NOT NULL DEFAULT '1',
+  `certificado_antecedentes` tinyint(1) NOT NULL DEFAULT '1',
+  `libreta_militar` tinyint(1) DEFAULT '1',
+  `patron_biometrico` tinyint(1) NOT NULL DEFAULT '1',
+  `seguro_salud` tinyint(1) NOT NULL DEFAULT '1',
+  `sippase` tinyint(1) NOT NULL DEFAULT '1',
+  `AFP` enum('prevision','futuro') COLLATE utf8_spanish_ci NOT NULL DEFAULT (_cp850'futuro'),
+  `idioma_nativo` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id_requisito`)
+) ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `RRHH`.`boletas`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `RRHH`.`boletas` (
-  `id_boleta` INT NOT NULL AUTO_INCREMENT,
-  `codigo` VARCHAR(45) NOT NULL,
-  `tipo_tramite` TIME NOT NULL,
-  `hora_salida` TIME NOT NULL,
-  `fecha` DATE NOT NULL,
-  `observacion` VARCHAR(250) NOT NULL,
-  `persona_id_persona` INT NOT NULL,
-  PRIMARY KEY (`id_boleta`, `codigo`),
-  INDEX `fk_boletas_persona_idx` (`persona_id_persona` ASC) VISIBLE,
-  CONSTRAINT `fk_boletas_persona`
-    FOREIGN KEY (`persona_id_persona`)
-    REFERENCES `RRHH`.`persona` (`id_persona`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+CREATE TABLE `boletas` (
+  `id_boleta` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id_persona` int(11) unsigned NOT NULL,
+  `codigo` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
+  `tipo_tramite` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `hora_salida` time NOT NULL,
+  `hora_retorno` time NOT NULL,
+  `fecha` date NOT NULL,
+  `observacion` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id_boleta`)
+)
 ENGINE = InnoDB;
 
 
