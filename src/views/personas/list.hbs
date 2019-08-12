@@ -8,8 +8,9 @@
             <div class="table-responsive-sm">
                 <table class="table table-hover cellspacing=" 0" width="100%"">
                     <thead>
-                        <tr>
-                            <th scope=" col">Nombres</th>
+                    <tr>
+                    <th scope=" col">N</th>
+                    <th scope=" col">Nombres</th>
                     <th scope="col">Fecha Nacimiento</th>
                     <th scope="col">Provincia</th>
                     <th scope="col">Dpto</th>
@@ -24,6 +25,7 @@
                     <tbody>
                         {{#each personal}}
                         <tr>
+                            <td>{{@key}}</td>
                             <td> {{ap_paterno}} {{ap_materno}} {{nombres}} </td>
                             <td> {{moment fecha_nacimiento format= "DD/MM/YY" }} </td>
                             <td> {{provincia}} </td>
@@ -33,9 +35,9 @@
                             <td> {{estado_civil}} </td>
                             <td> {{domicilio}} </td>
                             <td> {{sexo}} </td>
-                            <td>
-                                <a href="/personas/delete/{{id_persona}}" class="btn btn-danger mr-1">Eliminar</a>
-                                <a href="/personas/edit/{{id_persona}}" class="btn btn-secondary mr-1">Editar</a>
+                            <td style="display: flex">
+                                <a href="/personas/delete/{{id_persona}}" class="btn btn-danger mr-1"><i class="far fa-trash-alt"></i></a>
+                                <a href="/personas/edit/{{id_persona}}" class="btn btn-warning mr-1"><i class="fas fa-edit"></i></a>
                             </td>
                         </tr>
                         {{/each}}

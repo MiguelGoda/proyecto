@@ -4,7 +4,7 @@
             <div class="page-header">
                 <h1 id="tables" class="my-4 text-center">Niveles</h1>
             </div>
-            <table class="table table-hover table-bordered">
+            <table class="table table-hover cellspacing=" 0" width="100%"">
                 <thead>
                     <tr>
                         <th scope="col">Nivel</th>
@@ -18,8 +18,9 @@
                         <td> {{nombre_nivel}} </td>
                         <td> {{haber_basico}} </td>
                         <td>
-                            <a href="/niveles/delete/{{id_niveles}}" class="btn btn-danger mr-1">Eliminar</a>
-                            <a href="/niveles/edit/{{id_niveles}}" class="btn btn-secondary mr-1">Editar</a>
+                            <a href="/niveles/delete/{{id_niveles}}" class="btn btn-danger mr-1"><i
+                                                class="far fa-trash-alt"></i></a>
+                            <a href="/niveles/edit/{{id_niveles}}" class="btn btn-warning mr-1"><i class="fas fa-edit"></i></a>
                         </td>
                     </tr>
                     {{/each}}

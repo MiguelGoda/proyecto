@@ -57,6 +57,7 @@ app.use("/niveles", require("./routes/niveles"));
 app.use("/requisitos", require("./routes/requisitos"));
 app.use("/contrataciones", require("./routes/contrataciones"));
 app.use("/cargos", require("./routes/cargos"));
+app.use("/formacion_academica", require("./routes/formacion_academica"))
 
 //Public
 app.use(express.static(path.join(__dirname, "public")));

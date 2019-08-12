@@ -1,0 +1,32 @@
+
+<div id="contentDiv"></div>
+ 
+<!-- Compile with handlebars groceries.handlebars -f groceries.js -->
+ 
+<script id="grocery-template" type="text/x-handlebars-template">
+  {{#each groceries}}
+    <div class='grocery-item'>
+    <p>Item: {{this.item}} </p>
+    </div>
+  {{/each}}
+</script>
+ 
+<script type="text/javascript">
+ 
+  var templateInfo = document.getElementById("grocery-template").innerHTML;
+  var template = Handlebars.compile(templateInfo);
+ 
+  var context = {
+  groceries:[
+    {item: "Potato"},
+    {item: "Flour"},
+    {item: "Yogurt"},
+    {item: "Beans"}
+  ]
+}
+ 
+var templateData = template(context);
+ 
+document.getElementById('contentDiv').innerHTML += templateData;
+ 
+</script>
