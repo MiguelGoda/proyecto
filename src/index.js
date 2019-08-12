@@ -58,6 +58,7 @@ app.use("/requisitos", require("./routes/requisitos"));
 app.use("/contrataciones", require("./routes/contrataciones"));
 app.use("/cargos", require("./routes/cargos"));
 app.use("/formacion_academica", require("./routes/formacion_academica"))
+app.use("/biometrico", require("./routes/biometrico"));
 
 //Public
 app.use(express.static(path.join(__dirname, "public")));
